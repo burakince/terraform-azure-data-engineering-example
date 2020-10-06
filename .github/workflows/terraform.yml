@@ -25,6 +25,8 @@ jobs:
 
       - name: Terraform Format
         run: terraform fmt -check
+        env:
+          TF_LOG: TRACE
 
       - name: Terraform Init
         run: terraform init
