@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = ">= 2.26"
     }
   }
@@ -19,7 +19,7 @@ provider "azurerm" {
   client_id       = var.agent_client_id
   client_secret   = var.agent_client_secret
 
-  environment     = "public"
+  environment = "public"
   features {}
 }
 
@@ -29,6 +29,6 @@ resource "azurerm_resource_group" "rg" {
 
   tags = {
     Environment = "Stage"
-    Team = "DataEngineering"
+    Team        = "DataEngineering"
   }
 }
