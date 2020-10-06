@@ -14,18 +14,18 @@ terraform {
 }
 
 provider "azurerm" {
-  tenant_id       = "${var.tenant_id}"
-  subscription_id = "${var.subscription_id}"
-  client_id       = "${var.agent_client_id}"
-  client_secret   = "${var.agent_client_secret}"
+  tenant_id       = var.tenant_id
+  subscription_id = var.subscription_id
+  client_id       = var.agent_client_id
+  client_secret   = var.agent_client_secret
 
   environment     = "public"
   features {}
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.resource_group_name}"
-  location = "${var.location}"
+  name     = var.resource_group_name
+  location = var.location
 
   tags = {
     Environment = "Stage"
