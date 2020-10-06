@@ -1,0 +1,35 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = ">= 2.26"
+    }
+  }
+  backend "azurerm" {
+    resource_group_name  = "${var.backend_resource_group_name}"
+    storage_account_name = "${var.backend_storage_account_name}"
+    container_name       = "tfstate"
+    key                  = "stage.terraform.tfstate"
+  }
+
+}
+
+provider "azurerm" {
+  tenant_id       = "${var.tenant_id}"
+  subscription_id = "${var.subscription_id}"
+  client_id       = "${var.agent_client_id}"
+  client_secret   = "${var.agent_client_secret}"
+
+  environment     = "public"
+  features {}
+}
+
+resource "azurerm_resource_group" "rg" {
+  name     = "${var.resource_group_name}"
+  location = "${var.location}"
+
+  tags = {
+    Environment = "Stage"
+    Team = "DataEngineering"
+  }
+}
