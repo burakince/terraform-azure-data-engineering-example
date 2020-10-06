@@ -88,8 +88,6 @@ jobs:
         TF_VAR_agent_client_secret: ${{ secrets.TF_VAR_AGENT_CLIENT_SECRET }}
         TF_VAR_subscription_id: ${{ secrets.TF_VAR_SUBSCRIPTION_ID }}
         TF_VAR_tenant_id: ${{ secrets.TF_VAR_TENANT_ID }}
-        TF_VAR_backend_resource_group_name: ${{ secrets.TF_VAR_BACKEND_RESOURCE_GROUP_NAME }}
-        TF_VAR_backend_storage_account_name: ${{ secrets.TF_VAR_BACKEND_STORAGE_ACCOUNT_NAME }}
 
       # On push to main, build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
@@ -101,5 +99,3 @@ jobs:
         TF_VAR_agent_client_secret: ${{ secrets.TF_VAR_AGENT_CLIENT_SECRET }}
         TF_VAR_subscription_id: ${{ secrets.TF_VAR_SUBSCRIPTION_ID }}
         TF_VAR_tenant_id: ${{ secrets.TF_VAR_TENANT_ID }}
-        TF_VAR_backend_resource_group_name: ${{ secrets.TF_VAR_BACKEND_RESOURCE_GROUP_NAME }}
-        TF_VAR_backend_storage_account_name: ${{ secrets.TF_VAR_BACKEND_STORAGE_ACCOUNT_NAME }}

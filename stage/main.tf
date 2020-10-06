@@ -6,8 +6,8 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "${var.backend_resource_group_name}"
-    storage_account_name = "${var.backend_storage_account_name}"
+    resource_group_name  = "burak-tfstate-rg"
+    storage_account_name = "buraktfstate2369"
     container_name       = "tfstate"
     key                  = "stage.terraform.tfstate"
   }
@@ -15,11 +15,6 @@ terraform {
 }
 
 provider "azurerm" {
-  tenant_id       = "${var.tenant_id}"
-  subscription_id = "${var.subscription_id}"
-  client_id       = "${var.agent_client_id}"
-  client_secret   = "${var.agent_client_secret}"
-
   environment     = "public"
   features {}
 }
