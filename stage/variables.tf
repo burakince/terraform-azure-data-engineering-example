@@ -9,6 +9,11 @@ variable "location" {
   default     = "uksouth"
 }
 
+variable "organization" {
+  description = "Company or Organization name"
+  default     = "burak"
+}
+
 variable "resource_group_name" {
   default = "data-engineering-rg"
 }

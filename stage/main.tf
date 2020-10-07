@@ -18,6 +18,14 @@ provider "azurerm" {
   features {}
 }
 
+resource "random_string" "namesuffix" {
+  length  = 8
+  upper   = false
+  number  = true
+  lower   = true
+  special = false
+}
+
 resource "azurerm_resource_group" "de" {
   name     = var.resource_group_name
   location = var.location
@@ -29,7 +37,7 @@ resource "azurerm_resource_group" "de" {
 }
 
 resource "azurerm_data_factory" "ingestion" {
-  name                = "ingestion"
+  name                = "${var.organization}ingestion${random_string.namesuffix.result}"
   location            = azurerm_resource_group.de.location
   resource_group_name = azurerm_resource_group.de.name
 }
