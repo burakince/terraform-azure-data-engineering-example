@@ -57,8 +57,8 @@ resource "azurerm_data_factory_dataset_json" "nextbike-london" {
   linked_service_name = azurerm_data_factory_linked_service_web.de.name
 
   http_server_location {
-    relative_url = "https://api.citybik.es/"
-    path         = "v2/networks/"
+    relative_url = "/v2/"
+    path         = "networks/"
     filename     = "nextbike-london"
   }
 
