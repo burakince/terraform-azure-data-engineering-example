@@ -28,6 +28,8 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        env:
+          TF_LOG: TRACE
 
       - name: "Terraform Validate"
         id: validate
