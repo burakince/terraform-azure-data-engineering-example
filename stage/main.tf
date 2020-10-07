@@ -18,7 +18,7 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "rg" {
+resource "azurerm_resource_group" "de" {
   name     = var.resource_group_name
   location = var.location
 
@@ -26,4 +26,10 @@ resource "azurerm_resource_group" "rg" {
     Environment = "Stage"
     Team        = "DataEngineering"
   }
+}
+
+resource "azurerm_data_factory" "ingestion" {
+  name                = "ingestion"
+  location            = azurerm_resource_group.de.location
+  resource_group_name = azurerm_resource_group.de.name
 }
