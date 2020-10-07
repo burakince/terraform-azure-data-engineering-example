@@ -1,10 +1,4 @@
 terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 2.26"
-    }
-  }
   backend "azurerm" {
     resource_group_name  = "burak-tfstate-rg"
     storage_account_name = "buraktfstate2369"
@@ -19,6 +13,7 @@ provider "azurerm" {
   client_id       = var.agent_client_id
   client_secret   = var.agent_client_secret
 
+  version     = ">= 2.26"
   environment = "public"
   features {}
 }
