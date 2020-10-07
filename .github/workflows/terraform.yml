@@ -22,7 +22,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 0.12.29
+          terraform_version: 0.13.4
 
       - name: Terraform Format
         run: terraform fmt
@@ -30,7 +30,10 @@ jobs:
       - name: Terraform Init
         run: terraform init
         env:
-          TF_LOG: TRACE
+          ARM_CLIENT_ID: ${{ secrets.TF_VAR_agent_client_id }}
+          ARM_CLIENT_SECRET: ${{ secrets.TF_VAR_agent_client_secret }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.TF_VAR_subscription_id }}
+          ARM_TENANT_ID: ${{ secrets.TF_VAR_tenant_id }}
 
       - name: "Terraform Validate"
         id: validate
