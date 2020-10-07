@@ -41,3 +41,26 @@ resource "azurerm_data_factory" "ingestion" {
   location            = azurerm_resource_group.de.location
   resource_group_name = azurerm_resource_group.de.name
 }
+
+resource "azurerm_data_factory_linked_service_web" "de" {
+  name                = "${var.organization}webservice${random_string.namesuffix.result}"
+  resource_group_name = azurerm_resource_group.de.name
+  data_factory_name   = azurerm_data_factory.ingestion.name
+  authentication_type = "Anonymous"
+  url                 = "https://api.citybik.es"
+}
+
+resource "azurerm_data_factory_dataset_json" "nextbike-london" {
+  name                = "${var.organization}nextbike-london${random_string.namesuffix.result}"
+  resource_group_name = azurerm_resource_group.de.name
+  data_factory_name   = azurerm_data_factory.ingestion.name
+  linked_service_name = azurerm_data_factory_linked_service_web.de.name
+
+  http_server_location {
+    relative_url = "https://api.citybik.es/"
+    path         = "v2/networks/"
+    filename     = "nextbike-london"
+  }
+
+  encoding = "UTF-8"
+}
