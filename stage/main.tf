@@ -42,35 +42,21 @@ resource "azurerm_data_factory" "ingestion" {
   resource_group_name = azurerm_resource_group.de.name
 }
 
-resource "azurerm_data_factory_integration_runtime_managed" "ingestion" {
-  name                = "${var.organization}ingestionserver${random_string.namesuffix.result}"
-  data_factory_name   = azurerm_data_factory.ingestion.name
-  resource_group_name = azurerm_resource_group.de.name
-  location            = azurerm_resource_group.de.location
-
-  node_size = "Standard_D2_v3"
-}
-
 resource "azurerm_data_factory_linked_service_web" "de" {
   name                     = "${var.organization}webservice${random_string.namesuffix.result}"
   resource_group_name      = azurerm_resource_group.de.name
   data_factory_name        = azurerm_data_factory.ingestion.name
-  integration_runtime_name = azurerm_data_factory_integration_runtime_managed.ingestion.name
   authentication_type      = "Anonymous"
   url                      = "https://api.citybik.es"
 }
 
-resource "azurerm_data_factory_dataset_json" "nextbike-london" {
+resource "azurerm_data_factory_dataset_delimited_text" "nextbike-london" {
   name                = "${var.organization}nextbike-london${random_string.namesuffix.result}"
   resource_group_name = azurerm_resource_group.de.name
   data_factory_name   = azurerm_data_factory.ingestion.name
   linked_service_name = azurerm_data_factory_linked_service_web.de.name
 
-  http_server_location {
-    relative_url = "/v2/"
-    path         = "networks/"
-    filename     = "nextbike-london"
-  }
-
-  encoding = "UTF-8"
+  url            = "https://api.citybik.es/v2/networks/nextbike-london"
+  request_body   = ""
+  request_method = "GET"
 }
