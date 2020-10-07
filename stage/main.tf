@@ -42,12 +42,22 @@ resource "azurerm_data_factory" "ingestion" {
   resource_group_name = azurerm_resource_group.de.name
 }
 
-resource "azurerm_data_factory_linked_service_web" "de" {
-  name                = "${var.organization}webservice${random_string.namesuffix.result}"
-  resource_group_name = azurerm_resource_group.de.name
+resource "azurerm_data_factory_integration_runtime_managed" "ingestion" {
+  name                = "${var.organization}ingestionserver${random_string.namesuffix.result}"
   data_factory_name   = azurerm_data_factory.ingestion.name
-  authentication_type = "Anonymous"
-  url                 = "https://api.citybik.es"
+  resource_group_name = azurerm_resource_group.de.name
+  location            = azurerm_resource_group.de.location
+
+  node_size = "Standard_D2_v3"
+}
+
+resource "azurerm_data_factory_linked_service_web" "de" {
+  name                     = "${var.organization}webservice${random_string.namesuffix.result}"
+  resource_group_name      = azurerm_resource_group.de.name
+  data_factory_name        = azurerm_data_factory.ingestion.name
+  integration_runtime_name = azurerm_data_factory_integration_runtime_managed.ingestion.name
+  authentication_type      = "Anonymous"
+  url                      = "https://api.citybik.es"
 }
 
 resource "azurerm_data_factory_dataset_json" "nextbike-london" {
