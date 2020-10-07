@@ -15,5 +15,5 @@ variable "organization" {
 }
 
 variable "resource_group_name" {
-  default = "data-engineering-rg"
+  default = "de-rg"
 }
